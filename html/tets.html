@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Pop-up Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .image-container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        #thumbnail {
+            max-width: 100%;
+            height: auto;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        #thumbnail:hover {
+            transform: scale(1.05);
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .popup-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            margin-top: 25vh;
+        }
+
+        .caption {
+            text-align: center;
+            color: #fff;
+            margin-top: 10px;
+        }
+
+        .source-link {
+            text-align: center;
+            margin-top: 5px;
+        }
+
+        .source-link a {
+            color: #1e90ff;
+            text-decoration: none;
+        }
+
+        .source-link a:hover {
+            text-decoration: underline;
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+
+
+    
+    <div class="image-container">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsb0aDFQ8765AVfFaxvL2qUdDx_BZ-l893banG1AYkNA&s" alt="Thumbnail" id="thumbnail" data-caption="jyaden is big dum dum" data-source="www.andybetter.com">
+    </div>
+    <div id="popup" class="popup">
+        <span class="close">&times;</span>
+        <img class="popup-content" id="popup-img">
+        <div class="caption" id="popup-caption"></div>
+        <div class="source-link" id="popup-source-link"></div>
+    </div>
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var thumbnail = document.getElementById('thumbnail');
+            var popup = document.getElementById('popup');
+            var popupImg = document.getElementById('popup-img');
+            var popupCaption = document.getElementById('popup-caption');
+            var popupSourceLink = document.getElementById('popup-source-link');
+            var close = document.getElementsByClassName('close')[0];
+
+            thumbnail.onclick = function() {
+                popup.style.display = 'block';
+                popupImg.src = this.src;
+                popupCaption.textContent = this.getAttribute('data-caption');
+                popupSourceLink.innerHTML = 'Source: <a href="' + this.getAttribute('data-source') + '" target="_blank">' + this.getAttribute('data-source') + '</a>';
+            }
+
+            close.onclick = function() {
+                popup.style.display = 'none';
+            }
+
+            popup.onclick = function(event) {
+                if (event.target !== popupImg && event.target !== popupCaption && event.target !== popupSourceLink) {
+                    popup.style.display = 'none';
+                }
+            }
+        });
+    </script>
+</body>
+</html>
